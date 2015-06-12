@@ -27,6 +27,15 @@ class Undefined extends JsObject {
   }
 }
 
+class Getter extends Function {
+  final Function getter;
+
+  Getter(this.getter);
+
+  @override
+  call() => getter();
+}
+
 abstract class JsObject {
   const JsObject();
 
@@ -201,6 +210,20 @@ class EvaluatorVisitor extends RecursiveVisitor {
     }
 
     switchScope(currentScope.parent);
+  }
+
+  @override
+  visitObject(ObjectExpression node) {
+    var map = {};
+
+    for (var prop in node.properties) {
+      var key = prop.nameString;
+      var value = visit(prop.expression);
+
+      map[key] = value;
+    }
+
+    return map;
   }
 
   @override
