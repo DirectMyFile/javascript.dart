@@ -1,0 +1,5 @@
+name: javascript
+version: 1.0.0
+description: JavaScript Parser and Evaluator
+dependencies:
+  unicode: '>=0.0.8 <1.0.0'
